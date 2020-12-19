@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/macro';
+import { useHistory } from 'react-router-dom';
 import { NavBar } from 'app/containers/NavBar';
 import { Helmet } from 'react-helmet-async';
 import { StyleConstants } from 'styles/StyleConstants';
@@ -13,6 +14,7 @@ import { convertCompilerOptionsFromJson } from 'typescript';
 
 export function Subscribe() {
   const { t } = useTranslation();
+  const history = useHistory();
   const axios = require('axios').default;
 
   const [email, setEmail] = React.useState('');
@@ -80,6 +82,7 @@ export function Subscribe() {
           setError('Postal Code not found');
         } else {
           setError('');
+          history.push('/confirmation');
         }
       });
   };
