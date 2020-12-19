@@ -36,7 +36,7 @@ export function Subscribe() {
       console.log('incorrect format');
       setError(`${t(translations.error.email)}`);
     } else {
-      console.log('incorrect format');
+      console.log('correct format');
       setError('');
     }
   };
