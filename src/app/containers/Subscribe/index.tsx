@@ -34,7 +34,7 @@ export function Subscribe() {
     setEmail(e.target.value);
     if (!emailRegexTest(e.target.value)) {
       console.log('incorrect format');
-      setError('Wrong Email Format');
+      setError(`${t(translations.error.email)}`);
     } else {
       console.log('incorrect format');
       setError('');
@@ -44,7 +44,7 @@ export function Subscribe() {
     setPostalCode(e.target.value);
     if (!pCodeRegexTest(e.target.value)) {
       console.log('incorrect format');
-      setError('Wrong Postal Code Format');
+      setError(`${t(translations.error.postalCode)}`);
     } else {
       console.log('correct format');
       setError('');
@@ -73,6 +73,7 @@ export function Subscribe() {
         console.log(response);
       })
       .catch(error => {
+        // console.log(error);
         console.log({
           is_deliverable: true,
           has_error: false,
