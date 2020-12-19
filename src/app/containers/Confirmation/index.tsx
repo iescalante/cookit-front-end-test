@@ -8,9 +8,12 @@ import { translations } from 'locales/translations';
 
 import { Button } from 'app/components/Button';
 import { convertCompilerOptionsFromJson } from 'typescript';
+import { useLocation } from 'react-router-dom';
 
 export function Confirmation() {
   const { t } = useTranslation();
+  const location: any = useLocation();
+  const myparams: any = location.state.params;
   return (
     <>
       <Helmet>
@@ -18,7 +21,11 @@ export function Confirmation() {
         <meta name="description" content="" />
       </Helmet>
       <NavBar />
-      <Wrapper>Confirmation Page</Wrapper>
+      <Wrapper>
+        <h2>Confirmation Page</h2>
+        <p>{myparams.email}</p>
+        <p>{myparams.postalCode}</p>
+      </Wrapper>
     </>
   );
 }
