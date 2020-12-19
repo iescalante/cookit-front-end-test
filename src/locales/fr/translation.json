@@ -25,6 +25,6 @@
   },
   "error": {
     "email": "Mauvais format de courriel, essayez à nouveau",
-    "postalCode": "Mauvais format de code postal, essayez à nouveau"
+    "postalCode": "Mauvais format de code postal, assurez-vous d'utiliser des lettres majuscules"
   }
 }

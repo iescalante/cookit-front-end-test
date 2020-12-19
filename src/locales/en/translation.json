@@ -25,6 +25,6 @@
   },
   "error": {
     "email": "Wrong email format, try again",
-    "postalCode": "Wrong postal code format"
+    "postalCode": "Wrong postal code format and make sure to use capital letters"
   }
 }
