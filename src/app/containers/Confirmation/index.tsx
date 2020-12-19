@@ -8,12 +8,18 @@ import { translations } from 'locales/translations';
 
 import { Button } from 'app/components/Button';
 import { convertCompilerOptionsFromJson } from 'typescript';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 export function Confirmation() {
   const { t } = useTranslation();
   const location: any = useLocation();
+  const history: any = useHistory();
   const myparams: any = location.state.params;
+
+  const handleHome = e => {
+    e.preventDefault();
+    history.push('/');
+  };
   return (
     <>
       <Helmet>
@@ -22,9 +28,14 @@ export function Confirmation() {
       </Helmet>
       <NavBar />
       <Wrapper>
-        <h2>Confirmation Page</h2>
-        <p>{myparams.email}</p>
-        <p>{myparams.postalCode}</p>
+        <h2>{t(translations.confirmation.title)}</h2>
+        <p>
+          {t(translations.subscribe.form.email)}: {myparams.email}
+        </p>
+        <p>
+          {t(translations.subscribe.form.postalCode)}: {myparams.postalCode}
+        </p>
+        <Button onClick={handleHome}>Home Page</Button>
       </Wrapper>
     </>
   );
