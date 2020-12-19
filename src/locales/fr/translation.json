@@ -19,5 +19,12 @@
       "postalCode": "Code postal",
       "submit": "Soumettre"
     }
+  },
+  "confirmation": {
+    "title": "Page de confirmation"
+  },
+  "error": {
+    "email": "Mauvais format de courriel, essayez à nouveau",
+    "postalCode": "Mauvais format de code postal, essayez à nouveau"
   }
 }

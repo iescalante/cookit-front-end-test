@@ -13,11 +13,18 @@
     "title": "Home page"
   },
   "subscribe": {
-    "title": "Susbscribe",
+    "title": "Subscribe",
     "form": {
       "email": "Email",
       "postalCode": "Postal code",
       "submit": "Submit"
     }
+  },
+  "confirmation": {
+    "title": "Confirmation Page"
+  },
+  "error": {
+    "email": "Wrong email format, try again",
+    "postalCode": "Wrong postal code format"
   }
 }
