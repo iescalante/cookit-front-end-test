@@ -18,7 +18,7 @@ export function Subscribe() {
   const axios = require('axios').default;
 
   const [email, setEmail] = React.useState('');
-  const [pCode, setPCode] = React.useState('');
+  const [postalCode, setPostalCode] = React.useState('');
   const [error, setError] = React.useState('');
 
   const emailRegexTest = x => {
@@ -40,8 +40,8 @@ export function Subscribe() {
       setError('');
     }
   };
-  const validatePCode = e => {
-    setPCode(e.target.value);
+  const validatePostalCode = e => {
+    setPostalCode(e.target.value);
     if (!pCodeRegexTest(e.target.value)) {
       console.log('incorrect format');
       setError('Wrong Postal Code Format');
@@ -52,7 +52,7 @@ export function Subscribe() {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    if (emailRegexTest(email) && pCodeRegexTest(pCode)) {
+    if (emailRegexTest(email) && pCodeRegexTest(postalCode)) {
       console.log('good info');
     } else {
       console.log('bad info');
@@ -62,7 +62,7 @@ export function Subscribe() {
       url:
         'https://s9g64p6vzb.execute-api.us-east-1.amazonaws.com/default/interview-is-zip-valid',
       data: {
-        zip: pCode,
+        zip: postalCode,
       },
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
@@ -78,11 +78,11 @@ export function Subscribe() {
           has_error: false,
           error_message: 'Not working',
         });
-        if (!pCodeRegexTest(pCode)) {
+        if (!pCodeRegexTest(postalCode)) {
           setError('Postal Code not found');
         } else {
           setError('');
-          history.push('/confirmation');
+          history.push('/confirmation', { params: { email, postalCode } });
         }
       });
   };
@@ -112,8 +112,8 @@ export function Subscribe() {
           <Input
             type="text"
             name="postalCode"
-            value={pCode}
-            onChange={validatePCode}
+            value={postalCode}
+            onChange={validatePostalCode}
           />
           <Button type="submit" onClick={handleSubmit}>
             {t(translations.subscribe.form.submit)}
