@@ -10,6 +10,7 @@ export const Button = styled.button`
 
   &:hover {
     background-color: ${p => p.theme.border};
+    cursor: pointer;
   }
 
   &:active {
