@@ -15,7 +15,7 @@ exports[`<Subscribe /> should render and match the snapshot 1`] = `
   <NavBar />
   <Subscribe__Wrapper>
     <h1>
-      Susbscribe
+      Subscribe
     </h1>
     <Subscribe__Form>
       <FormLabel
