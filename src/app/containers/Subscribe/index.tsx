@@ -9,9 +9,80 @@ import { translations } from 'locales/translations';
 import { FormLabel } from 'app/components/FormLabel';
 import { Input } from 'app/components/Input';
 import { Button } from 'app/components/Button';
+import { convertCompilerOptionsFromJson } from 'typescript';
 
 export function Subscribe() {
   const { t } = useTranslation();
+  const axios = require('axios').default;
+
+  const [email, setEmail] = React.useState('');
+  const [pCode, setPCode] = React.useState('');
+  const [error, setError] = React.useState('');
+
+  const emailRegexTest = x => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(x);
+  };
+  const pCodeRegexTest = x => {
+    return /^[ABCEGHJ-NPRSTVXY][0-9][ABCEGHJ-NPRSTV-Z] [0-9][ABCEGHJ-NPRSTV-Z][0-9]$/.test(
+      x,
+    );
+  };
+
+  const validateEmail = e => {
+    setEmail(e.target.value);
+    if (!emailRegexTest(e.target.value)) {
+      console.log('incorrect format');
+      setError('Wrong Email Format');
+    } else {
+      console.log('incorrect format');
+      setError('');
+    }
+  };
+  const validatePCode = e => {
+    setPCode(e.target.value);
+    if (!pCodeRegexTest(e.target.value)) {
+      console.log('incorrect format');
+      setError('Wrong Postal Code Format');
+    } else {
+      console.log('correct format');
+      setError('');
+    }
+  };
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (emailRegexTest(email) && pCodeRegexTest(pCode)) {
+      console.log('good info');
+    } else {
+      console.log('bad info');
+    }
+    axios({
+      method: 'post',
+      url:
+        'https://s9g64p6vzb.execute-api.us-east-1.amazonaws.com/default/interview-is-zip-valid',
+      data: {
+        zip: pCode,
+      },
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log({
+          is_deliverable: true,
+          has_error: false,
+          error_message: 'Not working',
+        });
+        if (!pCodeRegexTest(pCode)) {
+          setError('Postal Code not found');
+        } else {
+          setError('');
+        }
+      });
+  };
 
   return (
     <>
@@ -23,11 +94,28 @@ export function Subscribe() {
       <Wrapper>
         <h1>{t(translations.subscribe.title)}</h1>
         <Form>
-          <FormLabel htmlFor="email">{t(translations.subscribe.form.email)}</FormLabel>
-          <Input type="text" name="email" />
-          <FormLabel htmlFor="postalCode">{t(translations.subscribe.form.postalCode)}</FormLabel>
-          <Input type="text" name="postalCode" />
-          <Button>{t(translations.subscribe.form.submit)}</Button>
+          <FormLabel htmlFor="email">
+            {t(translations.subscribe.form.email)}
+          </FormLabel>
+          <Input
+            type="text"
+            name="email"
+            value={email}
+            onChange={validateEmail}
+          />
+          <FormLabel htmlFor="postalCode">
+            {t(translations.subscribe.form.postalCode)}
+          </FormLabel>
+          <Input
+            type="text"
+            name="postalCode"
+            value={pCode}
+            onChange={validatePCode}
+          />
+          <Button type="submit" onClick={handleSubmit}>
+            {t(translations.subscribe.form.submit)}
+          </Button>
+          {error.length > 2 && <div>{error}</div>}
         </Form>
       </Wrapper>
     </>
